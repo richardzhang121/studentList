@@ -13,7 +13,8 @@ using namespace std;
 struct student {
   int ID;
   float GPA;
-  char* name;
+  char* firstName;
+  char* lastName;
 };
 
 //methods that allow the user to print, add, and delete a student (or students)
@@ -52,7 +53,7 @@ int main() {
 //prints students in the list
 void printStudent(vector <student*>* list) {
   for (vector<student*>:: iterator it = list->begin(); it != list->end(); it++){
-      cout<< "Name: " << (*it)-> name << ", ID: " << (*it)->ID << ", GPA: " << setprecision(2) << fixed << (*it)-> GPA << endl;
+    cout<< "Name: " << (*it)-> firstName << " " << (*it) -> lastName << ", ID: " << (*it)->ID << ", GPA: " << setprecision(2) << fixed << (*it)-> GPA << endl;
     }
 }
 
@@ -61,9 +62,13 @@ void newStudent(vector <student*>* list){
   student* s = new student;
   int studentID;
   float studentGPA;
-  char newStudentName[50];
-  cout << "Let's enter your information. What is your name?" << endl;
-  cin.get (newStudentName, 50);
+  char newFirstName[50];
+  char newLastName[50];
+  cout << "Let's enter your information. What is your first name?" << endl;
+  cin.get (newFirstName, 50);
+  cin.ignore();
+  cout << "What is your last name?" << endl;
+  cin.get (newLastName, 50);
   cin.ignore();
   cout << "What is your ID" << endl;
   cin >> studentID;
@@ -73,7 +78,8 @@ void newStudent(vector <student*>* list){
   cin.ignore();
   s->ID = studentID;
   s->GPA = studentGPA;
-  s->name = strdup(newStudentName);
+  s->firstName = strdup(newFirstName);
+  s->lastName = strdup(newLastName);
   list -> push_back(s);
 }
 
@@ -86,8 +92,9 @@ void deleteStudent(vector <student*>* list){
   cin.ignore();
   for(vector<student*>::iterator it = list->begin(); it != list-> end(); it++){ //look through the vector to find the person with that id
     if((*it)->ID == deleteID){
-      cout << "Removed " << (*it)->name << endl;
-      delete (*it)->name;
+      cout << "Removed " << (*it)-> firstName << " " << (*it) -> lastName << endl;
+      delete (*it)-> firstName;
+      delete (*it)-> lastName;
       delete *it;
       list->erase(it);
       it = list->end();
