@@ -1,6 +1,5 @@
 //ZhangRichard StudentList
 
-//Hi Daniel!!! :)
 //includes command types
 #include <iostream>
 #include <cstring>
